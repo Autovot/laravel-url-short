@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Main
 Route::get('/', function () {
+    return view('main');
+});
+
+Route::get('/dash', function () {
+    return view('dash');
+});
+
+
+// Exemplo
+Route::get('/welcome', function () {
     return view('welcome');
 });
