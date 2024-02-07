@@ -13,4 +13,11 @@ class ExampleTest extends TestCase
     {
         $this->assertTrue(true);
     }
+
+    public function test_tests(): bool
+    {
+        $testA = 'Hola';
+        $this->assertSame('Hola', $testA);
+        return true;
+    }
 }
