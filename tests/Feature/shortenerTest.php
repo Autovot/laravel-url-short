@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 
-class shortenerTest extends TestCase
+class ShortenerTest extends TestCase
 {
     /**
      * Endpoint /shortener de tipo post que recibe una url
