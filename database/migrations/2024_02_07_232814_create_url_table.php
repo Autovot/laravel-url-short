@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('url', function (Blueprint $table) {
             $table->id();
             $table->string('origin')->nullable();
-            $table->string('smashed')->nullable();
+            $table->string('smashed')->nullable()->unique();
             $table->timestamps('created_at');
             $table->integer('used')->default('0');
         });
