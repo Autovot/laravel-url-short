@@ -16,11 +16,17 @@ use Illuminate\Support\Facades\Route;
 // Main
 Route::get('/', function () {
     return view('main');
-});
+})->name('main');
 
 Route::get('/dash', function () {
     return view('dash');
-});
+})->name('dash');
+
+
+// URL
+Route::get('/url', function () {
+    return view('main');
+})->name('url');
 
 
 // Exemplo
