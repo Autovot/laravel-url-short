@@ -10,7 +10,7 @@ class shortenerTest extends TestCase
      * Endpoint /shortener de tipo post que recibe una url
      * y devuelve una url acortada.
      */
-    public function shortener_api_test(): void
+    public function test_shortener_api(): void
     {
 
         $urlInput = 'https://www.google.es/';
@@ -23,12 +23,12 @@ class shortenerTest extends TestCase
             ]);
     }
 
-    public function short_url_test(): void
+    public function test_short_url(): void
     {
 
     }
 
-    public function short_url_get_data_test()
+    public function test_short_url_get_data()
     {
 
     }
