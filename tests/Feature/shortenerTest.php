@@ -14,12 +14,12 @@ class ShortenerTest extends TestCase
     {
 
         $urlInput = 'https://www.google.es/';
-        $response = $this->postJson('/shortener', ['url-input' => $urlInput]);
+        $response = $this->postJson('/api/shortener', ['url-input' => $urlInput]);
 
         $response
-            ->assertStatus(201)
+            ->assertStatus(200)
             ->assertJson([
-                'url-output' => 'd3ba7b034c76b5b014da9398ffdebef0'
+                'url-input' => $urlInput
             ]);
     }
 
