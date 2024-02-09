@@ -3,7 +3,7 @@
 @section('main')
     <h2>Prueba</h2>
     <a href="dash"><button>Dashboard</button></a>
-    <form action="" method="get">
+    <form action="/api/shortener" method="POST">
         @csrf
         <label for="url-input">
             <input type="url" name="url-input" id="url-input">

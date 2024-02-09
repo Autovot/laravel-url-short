@@ -13,11 +13,15 @@ class UrlController extends Controller
 
     }
 
-    public function add()
+    // API /shortener call this function
+    public function add(Request $request)
     {
-
+        // $urlInput = $request->query('url-input');
+        // return $urlInput;
+        return $request;
     }
 
+    //
     public function incrementUsed($smashed)
     {
         $url = Url::where('smashed', $smashed)->increment('used');
