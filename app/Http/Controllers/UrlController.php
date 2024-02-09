@@ -16,9 +16,23 @@ class UrlController extends Controller
     // API /shortener call this function
     public function add(Request $request)
     {
-        // $urlInput = $request->query('url-input');
-        // return $urlInput;
-        return $request;
+        $urlInput = $request->input('url-input');
+        if (!$urlInput) {
+            return redirect()->route('main');
+        }
+
+        $urlOuput = md5($urlInput);
+
+        $urlCheck = Url::where('smashed', $urlOuput)->first();
+        if ($urlCheck) {
+            return $urlCheck;
+        }
+
+        $urlAdd = new Url();
+        $urlAdd->origin = $urlInput;
+        $urlAdd->smashed = $urlOuput;
+        $urlAdd->save();
+        return Url::where('smashed', $urlOuput)->first();
     }
 
     //
