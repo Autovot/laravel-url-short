@@ -16,19 +16,16 @@ class ShortenerTest extends TestCase
      * Endpoint /shortener de tipo post que recibe una url
      * y devuelve una url acortada.
      */
-    public function test_shortener_api(): bool
+    public function test_shortener_api(): /**bool **/void
     {
         $urlInput = 'https://www.google.es/';
-
-        $urlOutputTest = 'https://localhost/url/' . md5($urlInput);
+        $urlOutput = md5($urlInput);
 
         $response = $this->postJson('/api/shortener', ['url-input' => $urlInput]);
 
-        $urlOutputApi = 'https://localhost/url/' . $response->json()['smashed'];
-
-        $result = $urlOutputTest == $urlOutputApi;
-        var_dump($result);
-        return $result;
+        $response->assertStatus(200)->assertJsonFragment([
+            'smashed' => $urlOutput,
+        ]);
     }
 
     // public function test_short_url(): void

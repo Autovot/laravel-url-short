@@ -32,7 +32,9 @@ class UrlController extends Controller
         $urlAdd->origin = $urlInput;
         $urlAdd->smashed = $urlOuput;
         $urlAdd->save();
+        // return response()->json(['url-input' => Url::where('smashed', $urlOuput)->first()->smashed]);
         return Url::where('smashed', $urlOuput)->first();
+
     }
 
     //
