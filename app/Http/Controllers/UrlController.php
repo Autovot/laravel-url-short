@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Url;
 
 class UrlController extends Controller
@@ -14,26 +16,36 @@ class UrlController extends Controller
     }
 
     // API /shortener call this function
-    public function add(Request $request)
+    public function add(Request $request): JsonResponse
     {
+        // TODO que solo se pueda mandar un 'url-input a la vez'
+        // TODO que pasa cuando no se puede conectar a la base de datos
+        $urlValidate = Validator::make($request->all(), [
+            'url-input' => 'required|url' // URL localhost con active_url no rula
+        ]);
+
+        if ($urlValidate->fails()) {
+            return response()->json([
+                'status' => 'incorrect',
+            ]);
+        }
+
+
         $urlInput = $request->input('url-input');
-        if (!$urlInput) {
-            return redirect()->route('main');
-        }
-
         $urlOuput = md5($urlInput);
-
         $urlCheck = Url::where('smashed', $urlOuput)->first();
-        if ($urlCheck) {
-            return $urlCheck;
+        if (!$urlCheck) {
+            $urlAdd = new Url();
+            $urlAdd->origin = $urlInput;
+            $urlAdd->smashed = $urlOuput;
+            $urlAdd->save();
         }
-
-        $urlAdd = new Url();
-        $urlAdd->origin = $urlInput;
-        $urlAdd->smashed = $urlOuput;
-        $urlAdd->save();
-        // return response()->json(['url-input' => Url::where('smashed', $urlOuput)->first()->smashed]);
-        return Url::where('smashed', $urlOuput)->first();
+        // Main `RETURN` si todo esta correcto devuelve el json
+        return response()->json([
+            'status' => 'created',
+            'smashed' => Url::where('smashed', $urlOuput)->first()->smashed,
+        ]);
+        // return Url::where('smashed', $urlOuput)->first();
 
     }
 
