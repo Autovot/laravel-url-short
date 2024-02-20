@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UrlController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,12 +25,7 @@ Route::get('/dash', function () {
 
 
 // URL
-Route::get('/url', function () {
-    return view('main');
-})->name('url');
-
-
-// Exemplo
-Route::get('/welcome', function () {
-    return view('welcome');
-});
+Route::get(
+    '/url/{smashed}',
+    [UrlController::class, 'incrementUsed']
+)->name('url');

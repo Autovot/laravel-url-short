@@ -2,20 +2,27 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Testing\TestResponse;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
+use Tests\TestCase;
+
 
 class ShortenerTest extends TestCase
 {
-
     // Reset database
     use RefreshDatabase;
 
-    /**
-     * Endpoint /shortener de tipo post que recibe una url
-     * y devuelve una url acortada.
-     */
+    public function test_database_migration(): void
+    {
+        Artisan::call('migrate:fresh');
+        $this->assertTrue(Schema::hasTable('url'));
+    }
+
+    // /**
+    //  * Endpoint /shortener de tipo post que recibe una url
+    //  * y devuelve una url acortada.
+    //  */
     public function test_shortener_api_correct(): void
     {
         $urlInput = 'https://www.google.es/';
@@ -60,13 +67,18 @@ class ShortenerTest extends TestCase
         ]);
     }
 
-    // public function test_short_url(): void
+    // public function test_shortener_db_entry_created(): void
     // {
-
+    //     $this->assertDatabaseCount('url', 1);
     // }
 
-    // public function test_short_url_get_data()
+    // public function test_short_url(): void
     // {
+    //     $urlInput = 'https://www.google.es/';
+    //     $urlOutput = md5($urlInput);
 
+    //     $response = $this->get('/url/' . $urlOutput);
+    //     $response->assertStatus(200);
+    //     $response->assertPathIs($urlInput);
     // }
 }

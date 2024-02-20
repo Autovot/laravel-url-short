@@ -39,20 +39,27 @@ class UrlController extends Controller
             $urlAdd->origin = $urlInput;
             $urlAdd->smashed = $urlOuput;
             $urlAdd->save();
+        } else {
+            // var_dump($urlCheck);
+            var_dump("No deberias estar aqui");
         }
         // Main `RETURN` si todo esta correcto devuelve el json
         return response()->json([
             'status' => 'created',
             'smashed' => Url::where('smashed', $urlOuput)->first()->smashed,
         ]);
-        // return Url::where('smashed', $urlOuput)->first();
+    }
 
+
+    public function checkDB($smashed)
+    {
+        return Url::where('smashed', $smashed)->first();
     }
 
     //
     public function incrementUsed($smashed)
     {
-        $url = Url::where('smashed', $smashed)->increment('used');
+        $url = Url::where('smashed', $smashed)->first()->increment('used');
         if ($url) {
             return redirect()->route('url')->with('success', 'Se ha encontrado una url acortada, incrementando uso y redireccionando a la ruta');
         } else {
