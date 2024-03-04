@@ -18,7 +18,10 @@ class ShortenerTest extends TestCase
     //  * y devuelve una url acortada.
     //  */
 
-    public function test_when_url_provaided_are_correct_and_saved_in_db(): void
+    /**
+     * @test
+     */
+    public function when_url_provaided_are_correct_and_saved_in_db(): void
     {
         $urlInput = 'https://www.google.es/';
         $urlOutput = md5($urlInput);
@@ -33,7 +36,10 @@ class ShortenerTest extends TestCase
         $this->assertDatabaseCount('url', 1);
     }
 
-    public function test_trhow_error_when_url_provaided_are_incorrect_url(): void
+    /**
+     * @test
+     */
+    public function trhow_error_when_url_provaided_are_incorrect_url(): void
     {
         $urlInput = 'tongo';
 
@@ -44,7 +50,10 @@ class ShortenerTest extends TestCase
         ]);
     }
 
-    public function test_trhow_error_when_url_provaided_are_void(): void
+    /**
+     * @test
+     */
+    public function trhow_error_when_url_provaided_are_void(): void
     {
         $urlInput = '';
 
@@ -55,7 +64,10 @@ class ShortenerTest extends TestCase
         ]);
     }
 
-    public function test_trhow_error_when_no_url_provaided_in_post(): void
+    /**
+     * @test
+     */
+    public function trhow_error_when_no_url_provaided_in_post(): void
     {
         $response = $this->postJson('/api/shortener');
 
@@ -65,7 +77,10 @@ class ShortenerTest extends TestCase
     }
 
 
-    public function test_use_url_shortened_and_check_redirect(): void
+    /**
+     * @test
+     */
+    public function use_url_shortened_and_check_redirect(): void
     {
         $urlInput = 'https://www.google.es/';
         $urlOutput = md5($urlInput);
