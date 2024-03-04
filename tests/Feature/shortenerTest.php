@@ -74,6 +74,7 @@ class ShortenerTest extends TestCase
 
         $urlSmashed = Url::where('smashed', $urlOutput)->first()->value('smashed');
 
+        // !FIXME No redirecciona por que no rula web.php
         $response = $this->get('/', ['smashed => $urlSmashed']);
         $response->assertStatus(200);
         var_dump($response->headers);
