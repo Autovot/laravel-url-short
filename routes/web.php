@@ -26,6 +26,6 @@ Route::get('/dash', function () {
 
 // URL
 Route::get(
-    '/url/{smashed}',
+    '/{smashed}',
     [UrlController::class, 'incrementUsed']
 )->name('url');
