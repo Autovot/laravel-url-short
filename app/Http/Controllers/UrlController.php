@@ -60,13 +60,15 @@ class UrlController extends Controller
     //
     public function incrementUsed($smashed)
     {
-        $url = Url::where('smashed', $smashed)->first()->value('origin');
-        if ($url) {
-            Url::where('smashed', $smashed)->first()->increment('used');
-            return redirect($url)->with('success', 'Se ha encontrado una url acortada, incrementando uso y redireccionando a la ruta');
+        $urlModel = Url::where('smashed', $smashed)->first();
+        if ($urlModel) {
+            $url = $urlModel->value('origin');
+            $urlModel->increment('used');
+            // return redirect($url)->with('success', 'Se ha encontrado una url acortada, incrementando uso y redireccionando a la ruta');
+            return redirect($url);
         } else {
-            Log::error($url);
-            return redirect()->route('/')->with('error', 'No se ha encontrado ninguna url acortada con esa id');
+            Log::error('URL model not found for smashed value: ' . $smashed);
+            return redirect()->route('main')->with('error', 'No se ha encontrado ninguna url acortada con esa id');
         }
     }
 }
