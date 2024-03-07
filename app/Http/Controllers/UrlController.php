@@ -67,7 +67,7 @@ class UrlController extends Controller
             return redirect($url)->with('success', 'Se ha encontrado una url acortada, incrementando uso y redireccionando a la ruta');
         } else {
             Log::error('URL model not found for smashed value: ' . $smashed);
-            return redirect()->route('main')->with('error', 'No se ha encontrado ninguna url acortada con esa id');
+            return abort(404, 'No se ha encontrado ninguna url acortada con esa id');
         }
     }
 }

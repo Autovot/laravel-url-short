@@ -39,7 +39,7 @@ class ShortenerTest extends TestCase
     /**
      * @test
      */
-    public function trhow_error_when_url_provaided_are_incorrect_url(): void
+    public function throw_error_when_url_provaided_are_incorrect_url(): void
     {
         $urlInput = 'tongo';
 
@@ -53,7 +53,7 @@ class ShortenerTest extends TestCase
     /**
      * @test
      */
-    public function trhow_error_when_url_provaided_are_void(): void
+    public function throw_error_when_url_provaided_are_void(): void
     {
         $urlInput = '';
 
@@ -67,7 +67,7 @@ class ShortenerTest extends TestCase
     /**
      * @test
      */
-    public function trhow_error_when_no_url_provaided_in_post(): void
+    public function throw_error_when_no_url_provaided_in_post(): void
     {
         $response = $this->postJson('/api/shortener');
 
@@ -89,22 +89,33 @@ class ShortenerTest extends TestCase
 
         $urlSmashed = Url::where('smashed', $urlOutput)->first()->value('smashed');
 
-        // !FIXME No redirecciona por que no rula web.php
         $response = $this
             ->followingRedirects()
-            ->get('/', ['smashed => $urlSmashed'])
-            ->assertStatus(200);
-
-
-        // var_dump($response->headers);
-
-
+            ->get('/', ['smashed' => $urlSmashed])
+            ->assertStatus(200); // TODO no es correcto del todo, hacer que devuelva 302
     }
 
     // test que pruebe que pasa si se le pasa una url incorrecta, se espera 404
+    /**
+     * @test
+     */
+    public function throw_error_when_redirect_id_provaided_are_incorrect(): void
+    {
+        $urlTest = 'test';
 
-    // test que pruebe que pasa si no se le pasa una url, se espera el index
+        $response = $this
+            ->followingRedirects()
+            ->get('/', ['smashed' => $urlTest])
+            ->assertStatus(404); // TODO hacer que esto devuelva 404
+    }
 
     //test que devuelva todos los datos necesarios
+    /**
+     * @test
+     */
+    public function get_all_data_of_url_table(): void
+    {
+
+    }
 
 }
