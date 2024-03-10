@@ -19,10 +19,7 @@ Route::get('/', function () {
     return view('main');
 })->name('main');
 
-Route::get('/dash', function () {
-    return view('dash');
-})->name('dash');
-
+Route::get('/dash', [UrlController::class, 'showDashboard'])->name('dash');
 
 Route::get('/tdash', [UrlController::class, 'urlTableData']);
 
