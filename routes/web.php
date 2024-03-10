@@ -24,6 +24,9 @@ Route::get('/dash', function () {
 })->name('dash');
 
 
+Route::get('/tdash', [UrlController::class, 'urlTableData']);
+
+
 // URL
 Route::get(
     '/{smashed}',
