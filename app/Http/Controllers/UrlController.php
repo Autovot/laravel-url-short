@@ -14,12 +14,12 @@ class UrlController extends Controller
     //
     public function urlTableData(): JsonResponse
     {
-        return response()->json(Url::get());
+        return response()->json(Url::query()->orderBy('id')->get());
     }
 
     public function showDashboard(): View
     {
-        $data = Url::get();
+        $data = Url::query()->orderBy('id')->get();
         return view('dash', [
             'data' => $data
         ]);
