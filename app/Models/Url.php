@@ -16,4 +16,9 @@ class Url extends Model
         'smashed',
         'used'
     ];
+
+    public function genRandomSmashedID(): string
+    {
+        return "";
+    }
 }
